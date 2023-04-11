@@ -35,7 +35,7 @@ def readTemp():
     ActivateADC()
     tmp1 = readadc(1) # read channel 1
     DeactivateADC()
-    tempinC = (tmp1 * (3.3  /1023)) * 10
+    tempinC = (tmp1 * (3.3 /1023)) * 100
     print(str(tempinC), "tempinC")
     return round(tempinC, 2)
 
