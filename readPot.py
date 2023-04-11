@@ -29,17 +29,15 @@ def readPot():
     ActivateADC()
     tmp0 = readadc(0) # read channel 0
     DeactivateADC()
-    print(tmp0)
     return tmp0
 
 def readTemp():  
     ActivateADC()
     tmp1 = readadc(1) # read channel 1
     DeactivateADC()
-    print(tmp1)
-    tempinC = (3.3 * tmp1 * 100/1023)/10
+    tempinC = (tmp1 * (3.3  /1024)) * 10
     print(str(tempinC), "tempinC")
-    return round(tempinC)
+    return round(tempinC, 2)
 
 if __name__ == "__main__":
     while True:

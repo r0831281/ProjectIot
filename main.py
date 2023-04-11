@@ -42,7 +42,6 @@ while True:
                 triggered = False
         else:
             temp = readPot.readTemp()
-            print(temp, "temp")
             stepper.showUnlocked()
             readingPot = readPot.readPot()
             time.sleep(0.01)
