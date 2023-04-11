@@ -8,4 +8,6 @@
     - turn knob to adjust the distance before it triggers
     - button to fully reset the trap after it is triggered
     - live stream to twitch when triggered
-    - 
+    - temperature sensor to ensure humane trapping
+    - ultrasonic measurment for the trigger
+    - uBeac dashboard with live data about temp, and the trigger counter
