@@ -6,6 +6,7 @@ import time
 import wiringpi
 import readPot
 import requests
+import stream
 
 ubeacUrl = "http://orangetraptm.hub.ubeac.io/iotsmousetrap"
 UID = "IotPi"
@@ -37,6 +38,7 @@ while True:
                 time.sleep(2.8)
                 DcMotor.stop()
                 time.sleep(0.01)
+                stream.stopStream()
                 triggered = False
         else:
             temp = readPot.readTemp()
@@ -52,11 +54,9 @@ while True:
             sens = luikAfstand - sens
             time.sleep(0.01)
             lcdtest.showArmed(sens, temp)
-
-            
-
             if (reading1 < sens) & (reading2 < sens):
                 triggercounter += 1
+                stream.startStream()
                 data = {
                     "id": UID,
                     "sensors": [{
@@ -77,5 +77,5 @@ while True:
                 triggered = True
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
-        wiringpi
+        stream.stopStream()
         break
