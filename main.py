@@ -5,14 +5,17 @@ import stepper
 import time
 import wiringpi
 import readPot
+import requests
 
+ubeacUrl = "http://orangetraptm.hub.ubeac.io/iotsmousetrap"
+UID = "IotPi"
 resetButton = 2
 wiringpi.wiringPiSetup()
 wiringpi.pinMode(resetButton, 0)
-triggered = True
+triggered = False
 luikAfstand = 24
 triggercounter = 0
-temp = readPot.readTemp()
+
 lcdtest.putString('starting.....')
 while True:
     try:
@@ -36,19 +39,35 @@ while True:
                 time.sleep(0.01)
                 triggered = False
         else:
+            temp = readPot.readTemp()
+            print(temp, "temp")
             stepper.showUnlocked()
             readingPot = readPot.readPot()
             time.sleep(0.01)
             reading1 = SonarReading.read()
             time.sleep(0.01)
             reading2 = SonarReading.read()
-            print('reading', reading1)
+            print('Distance reading', reading1)
             sens = readingPot/100
             sens = luikAfstand - sens
             time.sleep(0.01)
             lcdtest.showArmed(sens, temp)
+
+            
+
             if (reading1 < sens) & (reading2 < sens):
                 triggercounter += 1
+                data = {
+                    "id": UID,
+                    "sensors": [{
+                    "id": "temperature",
+                    "data": temp
+                    },
+                    {"id": "Counter",
+                    "data" : triggercounter
+                    }]
+                }
+                r = requests.post(ubeacUrl, verify=False, json=data)
                 stepper.trigger()
                 time.sleep(1)
                 stepper.lock()

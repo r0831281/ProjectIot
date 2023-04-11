@@ -11,10 +11,9 @@ wiringpi.pinMode(pinIn, 0)
 
 def sendBurst():
     wiringpi.digitalWrite(pinOut, 1)
-    print("sending...")
     time.sleep(0.1)
     wiringpi.digitalWrite(pinOut, 0)
-    print("signal send")
+
 
 def read():
         sendBurst()

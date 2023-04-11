@@ -25,27 +25,24 @@ wiringpi.pinMode(pin_CS_adc, 1)            # Set pin to mode 1 ( OUTPUT )
 wiringpi.wiringPiSPISetupMode(1, 0, 500000, 0)  #(channel, port, speed, mode)
 
 
-def readPot():
-    wiringpi.digitalWrite(pin_CS_adc, 1)    
+def readPot():    
     ActivateADC()
     tmp0 = readadc(0) # read channel 0
     DeactivateADC()
-    wiringpi.digitalWrite(pin_CS_adc, 0)
     print(tmp0)
     return tmp0
 
-def readTemp():
-    wiringpi.digitalWrite(pin_CS_adc, 1)    
+def readTemp():  
     ActivateADC()
     tmp1 = readadc(1) # read channel 1
     DeactivateADC()
-    wiringpi.digitalWrite(pin_CS_adc, 0)
     print(tmp1)
-    tempinC = 3.3 * tmp1 * 100/1023
-    print(str(round(tempinC)), "tempinC")
+    tempinC = (3.3 * tmp1 * 100/1023)/10
+    print(str(tempinC), "tempinC")
     return round(tempinC)
 
 if __name__ == "__main__":
     while True:
         print(readPot())
+        print(readTemp())
         time.sleep(1)

@@ -37,7 +37,7 @@ def showArmed(sens, temp):
     time.sleep(0.01)
     lcd_1.go_to_xy(2, 10)
     time.sleep(0.01)
-    lcd_1.put_string("sens: " + str(round(sens)))
+    lcd_1.put_string("sens: " + str(round(24-sens)) + "/10")
     lcd_1.go_to_xy(4, 23)
     time.sleep(0.01)
     lcd_1.put_string("temp: " + str(round(temp, 1)) )
