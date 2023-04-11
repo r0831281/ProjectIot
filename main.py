@@ -12,7 +12,7 @@ UID = "IotPi"
 resetButton = 2
 wiringpi.wiringPiSetup()
 wiringpi.pinMode(resetButton, 0)
-triggered = False
+triggered = True
 luikAfstand = 24
 triggercounter = 0
 
@@ -65,7 +65,9 @@ while True:
                     },
                     {"id": "Counter",
                     "data" : triggercounter
-                    }]
+                    },
+                    {"id": "distance to trigger",
+                     "data" : sens}]
                 }
                 r = requests.post(ubeacUrl, verify=False, json=data)
                 stepper.trigger()
