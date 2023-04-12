@@ -7,17 +7,21 @@ import wiringpi
 import readPot
 import requests
 import stream
+import JsonFuncs
 
+#setup and get persistent data
+lcdtest.putString('starting.....')
+data = JsonFuncs.read_json_file("data.json")
 ubeacUrl = "http://orangetraptm.hub.ubeac.io/iotsmousetrap"
 UID = "IotPi"
 resetButton = 2
 wiringpi.wiringPiSetup()
 wiringpi.pinMode(resetButton, 0)
-triggered = True
+triggered = data["State"]
 luikAfstand = 24
-triggercounter = 0
+triggercounter = data["Counter"]
 
-lcdtest.putString('starting.....')
+
 while True:
     try:
         if triggered:
@@ -73,8 +77,13 @@ while True:
                 time.sleep(1)
                 stepper.lock()
                 print("counter:", str(triggercounter))
+                
                 triggered = True
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
         stream.stopStream()
+        lcdtest.DeactivateLCD()
+        data["State"] = triggered
+        data["Counter"] = triggercounter
+        JsonFuncs.write_json_file("data.json")
         break
