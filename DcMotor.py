@@ -12,7 +12,7 @@ def forward():
 
 def backward():
     wiringpi.softPwmWrite(15, 0)
-    wiringpi.softPwmWrite(13, 55)
+    wiringpi.softPwmWrite(13, 100)
 
 
 def stop():

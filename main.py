@@ -11,7 +11,8 @@ import JsonFuncs
 
 #setup and get persistent data
 lcdtest.putString('starting.....')
-data = JsonFuncs.read_json_file("data.json")
+data = JsonFuncs.read_json_file("/home/orangepi/Documents/Project/data.json")
+
 ubeacUrl = "http://orangetraptm.hub.ubeac.io/iotsmousetrap"
 UID = "IotPi"
 resetButton = 2
@@ -20,6 +21,7 @@ wiringpi.pinMode(resetButton, 0)
 triggered = data["State"]
 luikAfstand = 24
 triggercounter = data["Counter"]
+
 
 
 while True:
@@ -34,7 +36,7 @@ while True:
                 time.sleep(0.02)
                 stepper.unlock()
                 DcMotor.backward()
-                time.sleep(2.9)
+                time.sleep(3.8)
                 DcMotor.stop()
                 time.sleep(1)
                 stepper.reset()
@@ -60,7 +62,7 @@ while True:
             if (reading1 < sens) & (reading2 < sens):
                 triggercounter += 1
                 stream.startStream()
-                data = {
+                ubeacData = {
                     "id": UID,
                     "sensors": [{
                     "id": "temperature",
@@ -72,18 +74,20 @@ while True:
                     {"id": "distance to trigger",
                      "data" : sens}]
                 }
-                r = requests.post(ubeacUrl, verify=False, json=data)
+                r = requests.post(ubeacUrl, verify=False, json=ubeacData)
                 stepper.trigger()
                 time.sleep(1)
                 stepper.lock()
                 print("counter:", str(triggercounter))
-                
                 triggered = True
+                data["State"] = triggered
+                data["Counter"] = triggercounter
+                JsonFuncs.write_json_file("/home/orangepi/Documents/Project/data.json", data)
     except KeyboardInterrupt:
-        print("KeyboardInterrupt")
-        stream.stopStream()
-        lcdtest.DeactivateLCD()
+        print("KeyboardInterrupt shutting down")
         data["State"] = triggered
         data["Counter"] = triggercounter
-        JsonFuncs.write_json_file("data.json")
+        JsonFuncs.write_json_file("/home/orangepi/Documents/Project/data.json", data)
+        stream.stopStream()
+        lcdtest.DeactivateLCD()
         break

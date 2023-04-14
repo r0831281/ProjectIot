@@ -18,7 +18,7 @@ def write_json_file(filename, data):
 
 if __name__ == "__main__":
     # Read data from a JSON file
-    data = read_json_file("data.json")
+    data = read_json_file("/home/orangepi/Documents/Project/data.json")
 
 
     trigger = data["Counter"]
@@ -27,4 +27,4 @@ if __name__ == "__main__":
     print(data["Counter"])
 
     # Write the modified data back to the JSON file
-    write_json_file("data.json", data)
+    write_json_file("/home/orangepi/Documents/Project/data.json", data)
