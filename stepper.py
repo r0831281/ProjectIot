@@ -28,6 +28,7 @@ def trigger():
     print("triggered")
     amount = 65
     while amount > 0:
+        #do sequence for amount of steps
         for steps in step_sequence:
             for step in steps:
                 wiringpi.digitalWrite(step, 1)
@@ -40,6 +41,7 @@ def lock():
     print('locking')
     lock = 130
     while lock > 0:
+        #do sequence backwards for amount of steps
         for steps in step_sequence[::-1]:
             for step in steps:
                 wiringpi.digitalWrite(step, 1)
