@@ -10,10 +10,10 @@ def DeactivateLCD():
     time.sleep(0.000005)
 
 PIN_OUT = {
-    'SCLK':   14,
-    'DIN':   11,
+    'SCLK':   14, # shared mcp3008
+    'DIN':   11, # shared mcp3008
     'DC':   8,
-    'CS':   7,  # We will not connect this pin! --> we use w16
+    'CS':   7,  
     'RST':   10,
     'LED':   5,  # backlight
 }
