@@ -17,7 +17,7 @@ PIN_OUT = {
     'RST':   10,
     'LED':   5,  # backlight
 }
-# IN THIS CODE WE USE W13 (PIN 22) AS CHIP SELECT
+# pin 7cs
 pin_CS_lcd = 7
 wiringpi.wiringPiSetup()
 wiringpi.wiringPiSPISetupMode(1, 0, 500000, 0)  # (channel, port, speed, mode)
