@@ -10,5 +10,5 @@ def read():
             print('active hi')
         else:
             print('acitve low')
-
-read()
+if __name__ = "__main__":
+    read()
