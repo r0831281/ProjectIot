@@ -3,7 +3,7 @@ import wiringpi
 resetButton = 2
 wiringpi.wiringPiSetup()
 wiringpi.pinMode(resetButton, 0)
-
+#test reset button
 def read():
     while True:
         if wiringpi.digitalRead(resetButton):
