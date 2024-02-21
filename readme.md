@@ -13,4 +13,4 @@
     - uBeac dashboard with live data about temp, and the trigger counter
 
 ## Demo
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/7RVyvhLRBDM/0.jpg)](https://www.youtube.com/watch?v=7RVyvhLRBDM"Mouse Trap Demo")
+[![Mouse Trap Demo](http://img.youtube.com/vi/7RVyvhLRBDM/0.jpg)](https://www.youtube.com/watch?v=7RVyvhLRBDM "Mouse Trap Demo")
